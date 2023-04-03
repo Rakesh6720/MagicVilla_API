@@ -26,7 +26,7 @@ namespace MagicVilla_Web.Services
                 message.RequestUri = new Uri(apiRequest.Url);
                 if (apiRequest.Data != null)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), 
+                    message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data),
                         Encoding.UTF8, "application/json");
                 }
                 switch (apiRequest.ApiType)
@@ -63,6 +63,7 @@ namespace MagicVilla_Web.Services
                 var res = JsonConvert.SerializeObject(dto);
                 var APIResponse = JsonConvert.DeserializeObject<T>(res);
                 return APIResponse;
+            }
         }
     }
 }

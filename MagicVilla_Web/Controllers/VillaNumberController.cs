@@ -59,7 +59,7 @@ namespace MagicVilla_Web.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _villaNumberService.CreateAsync<APIResponse>(model.VillaNumber);
-                if (response != null && response.IsSuccess && response.ErrorMessages.Count == 0)
+                if (response != null && response.IsSuccess)
                 {
                     return RedirectToAction(nameof(IndexVillaNumber));
                 }
@@ -85,10 +85,10 @@ namespace MagicVilla_Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> UpdateVillaNumber(int villaId)
+        public async Task<IActionResult> UpdateVillaNumber(int villaNo)
         {
             VillaNumberUpdateVM villaNumberVM = new VillaNumberUpdateVM();
-            var response = await _villaNumberService.GetAsync<APIResponse>(villaId);
+            var response = await _villaNumberService.GetAsync<APIResponse>(villaNo);
             if (response != null && response.IsSuccess)
             {
                 VillaNumberDTO model = JsonConvert.DeserializeObject<VillaNumberDTO>(Convert.ToString(response.Result));
@@ -116,7 +116,7 @@ namespace MagicVilla_Web.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _villaNumberService.UpdateAsync<APIResponse>(model.VillaNumber);
-                if (response != null && response.IsSuccess && response.ErrorMessages.Count == 0)
+                if (response != null && response.IsSuccess)
                 {
                     return RedirectToAction(nameof(IndexVillaNumber));
                 }
@@ -142,14 +142,14 @@ namespace MagicVilla_Web.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> DeleteVillaNumber(int villaId)
+        public async Task<IActionResult> DeleteVillaNumber(int villaNo)
         {
-            VillaNumberUpdateVM villaNumberVM = new VillaNumberUpdateVM();
-            var response = await _villaNumberService.GetAsync<APIResponse>(villaId);
+            VillaNumberDeleteVM villaNumberVM = new ();
+            var response = await _villaNumberService.GetAsync<APIResponse>(villaNo);
             if (response != null && response.IsSuccess)
             {
                 VillaNumberDTO model = JsonConvert.DeserializeObject<VillaNumberDTO>(Convert.ToString(response.Result));
-                villaNumberVM.VillaNumber = _mapper.Map<VillaNumberUpdateDTO>(model);
+                villaNumberVM.VillaNumber = model;
             }
 
             response = await _villaService.GetAllAsync<APIResponse>();

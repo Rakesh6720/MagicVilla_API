@@ -13,6 +13,7 @@ namespace MagicVilla_VillaAPI.Controllers
 {
     [Route("api/villaNumberAPI")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class VillaNumberAPIController : ControllerBase
     {
         private readonly ILogger _logger;      
